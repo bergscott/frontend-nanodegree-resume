@@ -5,7 +5,7 @@ var bio = {
     "role": "Web Developer",
     "contactInfo": {
         "email": "berg.scott@outlook.com",
-        "mobile": "920-327-9452",
+        "mobile": "920-555-5555",
         "twitter": "@bergScott",
         "github": "bergscott",
         "location": "Green Bay, WI"
@@ -15,17 +15,87 @@ var bio = {
     "skills": ["HTML", "CSS", "JavaScript", "Python", "Java", "Ruby"]
 };
 
+var work = {
+    "jobs": [
+        {
+            "employer": "Univeristy of Wisconsin-Green Bay",
+            "title": "Electronics Technician",
+            "dates": "2012-present",
+            "location": "Green Bay, WI",
+            "description": "Served as a classroom technology support technician, administrator of videoconferencing systems and equipment reservation software"
+        }
+    ]
+}
+
+var projects = {
+    "projects": [
+        {
+            "title": "Responsive Birthday Wishlist",
+            "dates": "June 2017",
+            "description": "Fully responsive webpage containing a wish list for birthday gifts",
+            "images": ["images/wishlist1.jpg", "images/wishlist2.jpg"]
+        },
+        {
+            "title": "Guardian Feeder Android App",
+            "dates": "December 2016-February 2017",
+            "description": "Android App that searches for articles on theguardian.com using networked API requests",
+            "images": ["images/guardian1.jpg", "images/guardian2.jpg"]
+        }
+    ]
+}
+
+var education = {
+    "schools": [
+        {
+            "name": "UW-Madison",
+            "location": "Madison, WI",
+            "degree": "Bachelor of Arts",
+            "majors": ["Communication Arts"],
+            "dates": "2005-2009",
+            "url": "http://www.wisc.edu"
+        }
+    ],
+    "onlineCourses": [
+        {
+            "name": "JavaScript Basics",
+            "school": "Udacity",
+            "dates": "June-July, 2017",
+            "url": "http://www.udacity.com"
+        },
+        {
+            "name": "Responsive Web Design Fundamentals",
+            "school": "Udacity",
+            "dates": "June 2017",
+            "url": "http://www.udacity.com"
+        },
+        {
+            "name": "Responsive Images",
+            "school": "Udacity",
+            "dates": "June 2017",
+            "url": "http://www.udacity.com"
+        },
+        {
+            "name": "Android Basics (4 Courses)",
+            "school": "Udacity",
+            "dates": "November 2016-March 2017",
+            "url": "http://www.udacity.com"
+        }
+    ]
+}
+
+
+
+/*   OLD CODE
 var work = {};
 work.position = "Electronics Technician";
 work.employer = "University of Wisconsin-Green Bay";
 work.yearsWorked = "2012-present";
 work.city = "Green Bay, WI";
 
-var education = {};
-education["school"] = "University of Wisconsin-Madison";
-education["years"] = "2005-2009";
-education["city"] = "Madison, WI";
-
+var educationUW = {};
+educationUW["school"] = "University of Wisconsin-Madison";
+educationUW["years"] = "2005-2009";
+educationUW["city"] = "Madison, WI";
 
 var formattedName = HTMLheaderName.replace(placeholder, bio.name);
 var formattedRole = HTMLheaderRole.replace(placeholder, bio.role);
@@ -50,9 +120,9 @@ var formattedUWGBinfo = [
 ];
 
 var formattedMadisonInfo = [
-    HTMLschoolName.replace(placeholder, education.school),
-    HTMLschoolDates.replace(placeholder, education.years),
-    HTMLschoolLocation.replace(placeholder, education.city)
+    HTMLschoolName.replace(placeholder, educationUW.school),
+    HTMLschoolDates.replace(placeholder, educationUW.years),
+    HTMLschoolLocation.replace(placeholder, educationUW.city)
 ];
 
 for (var i = 0; i < bio.skills.length; i++) {
@@ -85,3 +155,4 @@ for (var i = 0; i < formattedMadisonInfo.length; i++) {
     $("#education .education-entry:first-of-type").append(
         formattedMadisonInfo[i]);
 }
+*/
