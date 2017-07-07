@@ -12,7 +12,7 @@ var bio = {
     },
     "pictureURL": "images/scott.jpg",
     "welcomeMessage": "Hi, I'm Scott and I'm learning to be a Web Developer!",
-    "skills": ["HTML", "CSS", "JavaScript", "Python", "Java", "Ruby"]
+    "skills": ["HTML", "CSS", "JavaScript", "jQuery", "Python", "Java", "Ruby"]
 };
 
 var work = {
@@ -23,6 +23,13 @@ var work = {
             "dates": "2012-present",
             "location": "Green Bay, WI",
             "description": "Served as a classroom technology support technician, administrator of videoconferencing systems and equipment reservation software"
+        },
+        {
+            "employer": "WBAY-TV",
+            "title": "Newscast Director",
+            "dates": "2010-2012",
+            "location": "Green Bay, WI",
+            "description": "Directed production crew and operated a video production switcher to produce live television newscasts. Lead programming of shot and transition templates for repeated use in newscasts."
         }
     ]
 }
@@ -82,6 +89,39 @@ var education = {
         }
     ]
 }
+
+var formattedName = HTMLheaderName.replace(placeholder, bio.name);
+var formattedRole = HTMLheaderRole.replace(placeholder, bio.role);
+var formattedBioPic = HTMLbioPic.replace(placeholder, bio.pictureURL);
+var formattedWelcome = HTMLwelcomeMsg.replace(placeholder, bio.welcomeMessage);
+
+$("#header").prepend(formattedWelcome);
+$("#header").prepend(formattedBioPic);
+$("#header").prepend(formattedRole);
+$("#header").prepend(formattedName);
+
+if (bio.skills.length != 0) {
+    $("#header").append(HTMLskillsStart);
+    var formattedSkill;
+    for (var i = 0; i < bio.skills.length; i++) {
+        formattedSkill = HTMLskills.replace(placeholder, bio.skills[i]);
+        console.log(formattedSkill);
+        $("#skills").append(formattedSkill);
+    }
+}
+
+work.jobs.forEach(function(job) {
+    var formattedEmployer = HTMLworkEmployer.replace(placeholder, job.employer);
+    var formattedJobTitle = HTMLworkTitle.replace(placeholder, job.title);
+    var formattedJobDates = HTMLworkDates.replace(placeholder, job.dates);
+    var formattedJobLocation = HTMLworkLocation.replace(placeholder, job.location);
+    var formattedJobDescription = HTMLworkDescription.replace(placeholder, job.description);
+    $("#workExperience").append(HTMLworkStart);
+    $(".work-entry:last").append(formattedEmployer + formattedJobTitle);
+    $(".work-entry:last").append(formattedJobDates);
+    $(".work-entry:last").append(formattedJobLocation);
+    $(".work-entry:last").append(formattedJobDescription);
+});
 
 
 
