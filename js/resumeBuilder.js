@@ -29,10 +29,10 @@ var work = {
             "title": "Newscast Director",
             "dates": "2010-2012",
             "location": "Green Bay, WI",
-            "description": "Directed production crew and operated a video production switcher to produce live television newscasts. Lead programming of shot and transition templates for repeated use in newscasts."
+            "description": "Directed production crew and operated a video production switcher to produce live television newscasts. Led programming of shot and transition templates for repeated use in newscasts."
         }
     ]
-}
+};
 
 var projects = {
     "projects": [
@@ -40,16 +40,36 @@ var projects = {
             "title": "Responsive Birthday Wishlist",
             "dates": "June 2017",
             "description": "Fully responsive webpage containing a wish list for birthday gifts",
-            "images": ["images/wishlist1.jpg", "images/wishlist2.jpg"]
+            "images": ["images/wishlist1.png", "images/wishlist2.png"]
         },
         {
             "title": "Guardian Feeder Android App",
             "dates": "December 2016-February 2017",
             "description": "Android App that searches for articles on theguardian.com using networked API requests",
-            "images": ["images/guardian1.jpg", "images/guardian2.jpg"]
+            "images": ["images/guardian1.png", "images/guardian2.png"]
         }
     ]
-}
+};
+
+projects.display = function() {
+
+    this.projects.forEach(function(project) {
+
+        var formattedProjectTitle = formatElement(project.title, HTMLprojectTitle);
+        var formattedProjectDates = formatElement(project.dates, HTMLprojectDates);
+        var formattedProjectDescription = formatElement(project.description,
+            HTMLprojectDescription);
+
+        $("#projects").append(HTMLprojectStart);
+        $(".project-entry:last").append(formattedProjectTitle);
+        $(".project-entry:last").append(formattedProjectDates);
+        $(".project-entry:last").append(formattedProjectDescription);
+
+        project.images.forEach(function(image) {
+            $(".project-entry:last").append(formatElement(image, HTMLprojectImage));
+        });
+    });
+};
 
 var education = {
     "schools": [
@@ -88,12 +108,16 @@ var education = {
             "url": "http://www.udacity.com"
         }
     ]
-}
+};
 
-var formattedName = HTMLheaderName.replace(placeholder, bio.name);
-var formattedRole = HTMLheaderRole.replace(placeholder, bio.role);
-var formattedBioPic = HTMLbioPic.replace(placeholder, bio.pictureURL);
-var formattedWelcome = HTMLwelcomeMsg.replace(placeholder, bio.welcomeMessage);
+var formatElement = function(element, template) {
+    return template.replace(placeholder, element);
+};
+
+var formattedName = formatElement(bio.name, HTMLheaderName);
+var formattedRole = formatElement(bio.role, HTMLheaderRole);
+var formattedBioPic = formatElement(bio.pictureURL, HTMLbioPic);
+var formattedWelcome = formatElement(bio.welcomeMessage, HTMLwelcomeMsg);
 
 $("#header").prepend(formattedWelcome);
 $("#header").prepend(formattedBioPic);
@@ -102,26 +126,40 @@ $("#header").prepend(formattedName);
 
 if (bio.skills.length != 0) {
     $("#header").append(HTMLskillsStart);
-    var formattedSkill;
     for (var i = 0; i < bio.skills.length; i++) {
-        formattedSkill = HTMLskills.replace(placeholder, bio.skills[i]);
-        console.log(formattedSkill);
-        $("#skills").append(formattedSkill);
+        $("#skills").append(formatElement(bio.skills[i], HTMLskills));
     }
 }
 
 work.jobs.forEach(function(job) {
-    var formattedEmployer = HTMLworkEmployer.replace(placeholder, job.employer);
-    var formattedJobTitle = HTMLworkTitle.replace(placeholder, job.title);
-    var formattedJobDates = HTMLworkDates.replace(placeholder, job.dates);
-    var formattedJobLocation = HTMLworkLocation.replace(placeholder, job.location);
-    var formattedJobDescription = HTMLworkDescription.replace(placeholder, job.description);
+
+    var formattedEmployer = formatElement(job.employer, HTMLworkEmployer);
+    var formattedJobTitle = formatElement(job.title, HTMLworkTitle);
+    var formattedJobDates = formatElement(job.dates, HTMLworkDates);
+    var formattedJobLocation = formatElement(job.location, HTMLworkLocation);
+    var formattedJobDescription = formatElement(job.description, HTMLworkDescription);
+
     $("#workExperience").append(HTMLworkStart);
     $(".work-entry:last").append(formattedEmployer + formattedJobTitle);
     $(".work-entry:last").append(formattedJobDates);
     $(".work-entry:last").append(formattedJobLocation);
     $(".work-entry:last").append(formattedJobDescription);
 });
+
+projects.display();
+
+$(document).click(function(loc) {
+    logClicks(loc.pageX, loc.pageY);
+});
+
+$("#main").append(internationalizeButton);
+
+var inName = function(name) {
+    var splitName = name.trim().split(" ");
+    return splitName[0].slice(0, 1).toUpperCase() +
+        splitName[0].slice(1).toLowerCase() + " " +
+        splitName[1].toUpperCase();
+}
 
 
 

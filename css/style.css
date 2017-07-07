@@ -163,6 +163,10 @@ ul {
   display: none;
 }
 
+.project-entry img {
+  max-height: 30vh;
+}
+
 img {
   padding: 10px;
 }
