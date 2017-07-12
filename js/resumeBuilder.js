@@ -1,9 +1,13 @@
 var placeholder = "%data%";
 
+var formatElement = function(element, template) {
+    return template.replace(placeholder, element);
+};
+
 var bio = {
     "name": "Scott Berg",
     "role": "Web Developer",
-    "contactInfo": {
+    "contacts": {
         "email": "berg.scott@outlook.com",
         "mobile": "920-555-5555",
         "twitter": "@bergScott",
@@ -14,6 +18,39 @@ var bio = {
     "welcomeMessage": "Hi, I'm Scott and I'm learning to be a Web Developer!",
     "skills": ["HTML", "CSS", "JavaScript", "jQuery", "Python", "Java", "Ruby"]
 };
+
+bio.display = function() {
+    var formattedName = formatElement(bio.name, HTMLheaderName);
+    var formattedRole = formatElement(bio.role, HTMLheaderRole);
+    var formattedBioPic = formatElement(bio.pictureURL, HTMLbioPic);
+    var formattedWelcome = formatElement(bio.welcomeMessage, HTMLwelcomeMsg);
+
+    $("#header").prepend(formattedWelcome);
+    $("#header").prepend(formattedBioPic);
+    $("#header").prepend(formattedRole);
+    $("#header").prepend(formattedName);
+
+    if (bio.skills.length != 0) {
+        $("#header").append(HTMLskillsStart);
+        for (var i = 0; i < bio.skills.length; i++) {
+            $("#skills").append(formatElement(bio.skills[i], HTMLskills));
+        }
+    }
+
+    var formattedContacts = [];
+    formattedContacts.push(formatElement(this.contacts.email, HTMLemail));
+    formattedContacts.push(formatElement(this.contacts.mobile, HTMLmobile));
+    formattedContacts.push(formatElement(this.contacts.twitter, HTMLtwitter));
+    formattedContacts.push(formatElement(this.contacts.github, HTMLgithub));
+    formattedContacts.push(formatElement(this.contacts.location, HTMLlocation));
+
+    formattedContacts.forEach(function(contact) {
+        $("#footerContacts").append(contact);
+    });
+
+};
+
+bio.display();
 
 var work = {
     "jobs": [
@@ -33,6 +70,24 @@ var work = {
         }
     ]
 };
+
+work.display = function() {
+    work.jobs.forEach(function(job) {
+        var formattedEmployer = formatElement(job.employer, HTMLworkEmployer);
+        var formattedJobTitle = formatElement(job.title, HTMLworkTitle);
+        var formattedJobDates = formatElement(job.dates, HTMLworkDates);
+        var formattedJobLocation = formatElement(job.location, HTMLworkLocation);
+        var formattedJobDescription = formatElement(job.description, HTMLworkDescription);
+
+        $("#workExperience").append(HTMLworkStart);
+        $(".work-entry:last").append(formattedEmployer + formattedJobTitle);
+        $(".work-entry:last").append(formattedJobDates);
+        $(".work-entry:last").append(formattedJobLocation);
+        $(".work-entry:last").append(formattedJobDescription);
+    });
+};
+
+work.display();
 
 var projects = {
     "projects": [
@@ -70,6 +125,8 @@ projects.display = function() {
         });
     });
 };
+
+projects.display();
 
 var education = {
     "schools": [
@@ -110,43 +167,38 @@ var education = {
     ]
 };
 
-var formatElement = function(element, template) {
-    return template.replace(placeholder, element);
+education.display = function() {
+    this.schools.forEach(function(school) {
+        var formattedName = formatElement(school.name, HTMLschoolName);
+        var formattedDegree = formatElement(school.degree, HTMLschoolDegree);
+        var formattedDates = formatElement(school.dates, HTMLschoolDates);
+        var formattedLocation = formatElement(school.location, HTMLschoolLocation);
+        var formattedMajors = formatElement(school.majors.join(", "), HTMLschoolMajor);
+
+        $("#education").append(HTMLschoolStart);
+        $(".education-entry:last").append(formattedName + formattedDegree);
+        $(".education-entry:last").append(formattedDates);
+        $(".education-entry:last").append(formattedLocation);
+        $(".education-entry:last").append(formattedMajors);
+    });
+
+    if (this.onlineCourses.length > 0) {
+        $("#education").append(HTMLonlineClasses);
+        this.onlineCourses.forEach(function(course) {
+            var formattedTitle = formatElement(course.name, HTMLonlineTitle);
+            var formattedSchool = formatElement(course.school, HTMLonlineSchool);
+            var formattedDates = formatElement(course.dates, HTMLonlineDates);
+            var formattedURL = formatElement(course.url, HTMLonlineURL);
+
+            $("#education").append(HTMLschoolStart);
+            $(".education-entry:last").append(formattedTitle + formattedSchool);
+            $(".education-entry:last").append(formattedDates);
+            $(".education-entry:last").append(formattedURL);
+        });
+    }
 };
 
-var formattedName = formatElement(bio.name, HTMLheaderName);
-var formattedRole = formatElement(bio.role, HTMLheaderRole);
-var formattedBioPic = formatElement(bio.pictureURL, HTMLbioPic);
-var formattedWelcome = formatElement(bio.welcomeMessage, HTMLwelcomeMsg);
-
-$("#header").prepend(formattedWelcome);
-$("#header").prepend(formattedBioPic);
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName);
-
-if (bio.skills.length != 0) {
-    $("#header").append(HTMLskillsStart);
-    for (var i = 0; i < bio.skills.length; i++) {
-        $("#skills").append(formatElement(bio.skills[i], HTMLskills));
-    }
-}
-
-work.jobs.forEach(function(job) {
-
-    var formattedEmployer = formatElement(job.employer, HTMLworkEmployer);
-    var formattedJobTitle = formatElement(job.title, HTMLworkTitle);
-    var formattedJobDates = formatElement(job.dates, HTMLworkDates);
-    var formattedJobLocation = formatElement(job.location, HTMLworkLocation);
-    var formattedJobDescription = formatElement(job.description, HTMLworkDescription);
-
-    $("#workExperience").append(HTMLworkStart);
-    $(".work-entry:last").append(formattedEmployer + formattedJobTitle);
-    $(".work-entry:last").append(formattedJobDates);
-    $(".work-entry:last").append(formattedJobLocation);
-    $(".work-entry:last").append(formattedJobDescription);
-});
-
-projects.display();
+education.display();
 
 $(document).click(function(loc) {
     logClicks(loc.pageX, loc.pageY);
@@ -154,14 +206,14 @@ $(document).click(function(loc) {
 
 $("#main").append(internationalizeButton);
 
+$("#mapDiv").append(googleMap);
+
 var inName = function(name) {
     var splitName = name.trim().split(" ");
     return splitName[0].slice(0, 1).toUpperCase() +
         splitName[0].slice(1).toLowerCase() + " " +
         splitName[1].toUpperCase();
 }
-
-
 
 /*   OLD CODE
 var work = {};

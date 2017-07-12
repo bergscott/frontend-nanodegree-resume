@@ -223,3 +223,10 @@ span {
     display: block;
   }
 }
+
+.map-overlay {
+  color: #f5ae23;
+  font-size: 2em;
+  background-color: #484848;
+  padding: 5px;
+}
